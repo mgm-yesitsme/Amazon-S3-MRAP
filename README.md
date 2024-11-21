@@ -52,25 +52,6 @@ Next, I configured the failover settings for the MRAP. I chose a primary region 
 *** Step 4: Set Up Bucket Policies
 I configured IAM policies to ensure that only authorized users could access the S3 buckets through the MRAP. The policies were designed to allow only traffic routed through the MRAP ARN, ensuring secure access and preventing unauthorized requests.
 
-Bucket policy sample:
-
-{
-    "Version": "2012-10-17",
-    "Statement" : [
-    {
-        "Effect": "Allow",
-        "Principal" : { "AWS": "*" },
-        "Action" : "*",
-        "Resource" : [ 
-            "<BucketARN>", 
-            "<BucketARN>/*"
-        ],
-        "Condition": {
-            "StringEquals" : { "s3:DataAccessPointArn" : "<MultiRegionAccessPoint_ARN>"}
-        }
-    }]
-}
-
 *** Step 5: Test and Monitor
 After setting up everything, I tested the replication by uploading a file to one of the S3 buckets and checking that it replicated to the other buckets. I also tested the failover functionality by switching the active region and ensuring that data was still accessible.
 
